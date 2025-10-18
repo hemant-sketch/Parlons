@@ -1,12 +1,11 @@
 const server_url = "http://localhost:8000";
-import "../styles/videoComponent.css";
+import styles from "../styles/videoComponent.module.css";
 import React, { useEffect, useRef, useState } from 'react'
 import io from "socket.io-client";
 import { Badge, IconButton, TextField } from '@mui/material';
 import { Button } from '@mui/material';
 import VideocamIcon from '@mui/icons-material/Videocam';
 import VideocamOffIcon from '@mui/icons-material/VideocamOff'
-//import styles from "../styles/videoComponent.module.css";
 import CallEndIcon from '@mui/icons-material/CallEnd'
 import MicIcon from '@mui/icons-material/Mic'
 import MicOffIcon from '@mui/icons-material/MicOff'
@@ -92,7 +91,7 @@ export default function VideoMeetComponent() {
         } catch (e) { console.log(e) }
 
         window.localStream = stream
-        localVideoref.current.srcObject = stream
+        localVideoRef.current.srcObject = stream
 
         for (let id in connections) {
             if (id === socketIdRef.current) continue
@@ -114,13 +113,13 @@ export default function VideoMeetComponent() {
             setAudio(false);
 
             try {
-                let tracks = localVideoref.current.srcObject.getTracks()
+                let tracks = localVideoRef.current.srcObject.getTracks()
                 tracks.forEach(track => track.stop())
             } catch (e) { console.log(e) }
 
             let blackSilence = (...args) => new MediaStream([black(...args), silence()])
             window.localStream = blackSilence()
-            localVideoref.current.srcObject = window.localStream
+            localVideoRef.current.srcObject = window.localStream
 
             for (let id in connections) {
                 connections[id].addStream(window.localStream)
@@ -324,29 +323,37 @@ export default function VideoMeetComponent() {
     
     return (
         <div>
-            {askForUsername === true ? 
-               <div>
-                    <h2>Enter into Lobby</h2>
-                    <TextField id="outlined-basic" label="Username" value={username} onChange={e => setUsername(e.target.value)} />
-                    <Button variant="contained" onClick={connect} >Connect</Button>
+
+            {askForUsername === true ?
+
+                <div>
+
+
+                    <h2>Enter into Lobby </h2>
+                    <TextField id="outlined-basic" label="Username" value={username} onChange={e => setUsername(e.target.value)} variant="outlined" />
+                    <Button variant="contained" onClick={connect}>Connect</Button>
+
+
                     <div>
-                        <video ref={localVideoRef} autoPlay muted></video> 
+                        <video ref={localVideoRef} autoPlay muted></video>
                     </div>
 
-
-               </div> :
+                </div> : 
                 <>
                     <video ref={localVideoRef} autoPlay muted></video>
-                    {videos.map((video)=> (
+                    
+                    {videos.map((video)=>(
                         <div key={video.socketId}>
-                            <h2>{video.socketId}</h2>
-                            <video 
-                                data-socket={video.socketId}
-                            ></video>
+
                         </div>
                     ))}
+                
+                
+                
                 </>
-            }
+
+
+            }    
         </div>
     )
 }
