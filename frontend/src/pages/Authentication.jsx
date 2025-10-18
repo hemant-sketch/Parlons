@@ -28,7 +28,7 @@ export default function Authentication() {
 
   const [formState, setFormState] = React.useState(0);
 
-  const [open, setOpen] = React.useState(false); //for snackbar
+  const [open, setOpen] = React.useState(false); //for snackbar (modal)
 
   const { handleRegister, handleLogin } = React.useContext(AuthContext);
 
@@ -99,7 +99,7 @@ export default function Authentication() {
             </Avatar>
 
             <div>
-              <Button
+              <Button  //material ui
                 variant={formState === 0 ? "contained" : ""}
                 onClick={() => {
                   setFormState(0);

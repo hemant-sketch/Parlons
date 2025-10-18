@@ -1,13 +1,13 @@
 import { Server } from "socket.io"
 
 
-let connections = {}
+let connections = {} //kitne humare saath jude hue hai
 let messages = {}
 let timeOnline = {}
 
 
 // not to do this in production
-export const connectToSocket = (server) => {
+export const connectToSocket = (server) => {  //cross origin error handling
     const io = new Server(server, {
         cors: {
             origin: "*",
@@ -18,7 +18,9 @@ export const connectToSocket = (server) => {
     });
 
 
-    io.on("connection", (socket) => {
+    // socket is single connection bw your server and users device
+    // each socket has a unique id
+    io.on("connection", (socket) => {  //on is a listener and connection is an event
 
         console.log("SOMETHING CONNECTED")
 
@@ -83,9 +85,9 @@ export const connectToSocket = (server) => {
 
         socket.on("disconnect", () => {
 
-            var diffTime = Math.abs(timeOnline[socket.id] - new Date())
+            var diffTime = Math.abs(timeOnline[socket.id] - new Date()); //kbtak online tha disconnect wala
 
-            var key
+            var key;
 
             for (const [k, v] of JSON.parse(JSON.stringify(Object.entries(connections)))) {
 
