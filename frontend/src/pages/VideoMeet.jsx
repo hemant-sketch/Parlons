@@ -1,4 +1,3 @@
-const server_url = "http://localhost:8000";
 import styles from "../styles/videoComponent.module.css";
 import React, { useEffect, useRef, useState } from 'react'
 import io from "socket.io-client";
@@ -12,7 +11,10 @@ import MicOffIcon from '@mui/icons-material/MicOff'
 import ScreenShareIcon from '@mui/icons-material/ScreenShare';
 import StopScreenShareIcon from '@mui/icons-material/StopScreenShare'
 import ChatIcon from '@mui/icons-material/Chat'
-//import server from '../environment';
+import server from '../environment';
+
+const server_url = server;
+
 
 
 var connections = {};
