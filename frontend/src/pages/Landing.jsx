@@ -36,7 +36,7 @@ export default function LandingPage() {
                     </div>
                 </div>
                 <div>
-                    <img src="/public/mobile.png" alt="mobile images" className="mobile4"/>
+                    <img src="/mobile.png" alt="mobile images" className="mobile4"/>
                 </div>
 
 
